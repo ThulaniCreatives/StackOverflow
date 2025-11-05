@@ -14,10 +14,8 @@ data class AnswerDto(
     val lastActivityDate: Int? = null,
     val lastEditDate: Int? = null,
     val link: String? = null,
-    val owner: OwnerDto? = null,
     val questionId: Int? = null,
     val score: Int? = null,
-    val tags: List<String>? = null,
     val title: String? = null,
     val viewCount: Int? = null
 )

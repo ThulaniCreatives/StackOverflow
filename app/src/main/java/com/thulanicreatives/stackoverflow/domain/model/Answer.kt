@@ -1,0 +1,21 @@
+package com.thulanicreatives.stackoverflow.domain.model
+
+data class Answer(
+    val acceptedAnswerId: Int,
+    val answerCount: Int,
+    val body: String,
+    val bountyAmount: Int,
+    val bountyClosesDate: Int,
+    val closedDate: Int,
+    val closedReason: String,
+    val contentLicense: String,
+    val creationDate: Int,
+    val isAnswered: Boolean,
+    val lastActivityDate: Int,
+    val lastEditDate: Int,
+    val link: String,
+    val questionId: Int,
+    val score: Int,
+    val title: String,
+    val viewCount: Int
+)
