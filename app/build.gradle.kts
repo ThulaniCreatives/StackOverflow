@@ -60,6 +60,11 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
     implementation(libs.logging.interceptor)
+    //Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    //ViewModelScope
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
