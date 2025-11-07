@@ -1,6 +1,11 @@
 package com.thulanicreatives.stackoverflow.presentation.question_list
 
 sealed class MainUIEvents {
-    data class OnSearchQuestion(val newQuestion: String = "Java"): MainUIEvents()
+    data class OnSearchQuestion(val newQuestion: String): MainUIEvents()
     object OnSearchClick : MainUIEvents()
+}
+
+sealed class QuestionDetailEvents {
+    data class OnViewQuestionDetail(val questionId: String): QuestionDetailEvents()
+    object OnQuestionItemClick : QuestionDetailEvents()
 }

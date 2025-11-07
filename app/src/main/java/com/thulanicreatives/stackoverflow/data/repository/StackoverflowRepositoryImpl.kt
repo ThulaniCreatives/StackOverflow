@@ -52,4 +52,38 @@ class StackoverflowRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getQuestionDetailResult(questionId: String): Flow<Resource<QuestionResults>> {
+        return flow {
+            emit(Resource.Loading(true))
+
+            val response = try {
+                stackoverflowAPI.getQuestionDetailResult(questionId)
+            }catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error(application.getString(R.string.network_error)))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+            catch (e: IOException) {
+                e.printStackTrace()
+                emit(Resource.Error(application.getString(R.string.network_error)))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+                emit(Resource.Error(application.getString(R.string.network_error)))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+
+            response?.let { questionDto ->
+                emit(Resource.Success(questionDto.toQuestionResults()))
+                emit(Resource.Loading(false))
+                return@flow
+            }
+
+        }
+    }
+
 }

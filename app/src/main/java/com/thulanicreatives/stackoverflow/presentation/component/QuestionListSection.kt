@@ -15,8 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.fromHtml
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +46,7 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)
-                .size(35.dp)
+                .size(30.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(MaterialTheme.colorScheme.background)
         )
@@ -61,11 +67,12 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.primary
             )
-
             Text(
-                text = answer.body,
+                AnnotatedString.fromHtml(
+                    answer.body
+                ),
                 fontWeight = FontWeight.Normal,
-                fontSize = 12.sp,
+                fontSize = 10.sp,
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.primary,
                 overflow = TextOverflow.Ellipsis,
@@ -102,7 +109,7 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
             contentDescription = null,
             modifier = Modifier
                 .padding(8.dp)
-                .size(30.dp)
+                .size(24.dp)
         )
 
     }
@@ -110,30 +117,4 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
     if ( index < size) {
         Divider(modifier = Modifier.padding(horizontal = 16.dp))
     }
-}
-
-@Preview
-@Composable
-fun QuestionListSectionPreview() {
-    val data = Answer(
-        12,
-        12,
-        "hthththhtht",
-        12,
-        23,
-        23,
-        "",
-        "",
-        12,
-        false,
-        1,
-        1,
-        "",
-        1,
-        1,
-        emptyList(),
-        "Kotlin programming",
-        1
-    )
-    //QuestionListSection(data, 1, false)
 }

@@ -3,7 +3,6 @@ package com.thulanicreatives.stackoverflow.presentation.question_list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,13 +19,16 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.thulanicreatives.stackoverflow.R
+import com.thulanicreatives.stackoverflow.domain.model.QuestionDetailData
 import com.thulanicreatives.stackoverflow.presentation.component.QuestionListSection
 import com.thulanicreatives.stackoverflow.presentation.component.SearchSection
-import com.thulanicreatives.stackoverflow.R
 
 @Composable
 fun MainScreen(
-    viewModel: StackoverflowViewModel = hiltViewModel(),navController: NavHostController
+    viewModel: StackoverflowViewModel = hiltViewModel(),
+    //navController: NavHostController,
+    onItemClicked: (QuestionDetailData) -> Unit
 ) {
 
     val mainState by viewModel.mainState.collectAsState()
@@ -41,7 +43,7 @@ fun MainScreen(
                 modifier = Modifier
                     .size(45.dp)
                     .align(Alignment.Center),
-                color =colorResource(R.color.stack_color)
+                color = colorResource(R.color.stack_color)
 
             )
         }
@@ -59,11 +61,20 @@ fun MainScreen(
                     index++
                     val questionID = results.questionId.toString()
                     QuestionListSection(
-                        results, index,
-                        questionResults.items.size, modifier = Modifier.clickable {
-                            navController.navigate("QuestionDetail/$questionID")
-                        }
-                        )
+                        results, index, questionResults.items.size, modifier = Modifier.clickable {
+                            viewModel.onEventViewQuestionDetail(
+                                QuestionDetailEvents.OnViewQuestionDetail(
+                                    questionID
+                                )
+                            )
+                            viewModel.onEventViewQuestionDetail(QuestionDetailEvents.OnQuestionItemClick)
+
+                            val selectedData =
+                                QuestionDetailData(results.questionId, results.link, results.title)
+                            onItemClicked(selectedData)
+
+                            //navController.navigate("QuestionDetail/$questionID")
+                        })
                 }
             }
         }

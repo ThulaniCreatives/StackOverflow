@@ -19,11 +19,22 @@ interface StackoverflowAPI {
 
         ): QuestionResultsDto?
 
+    @GET("2.2/questions/{questionID}/answers?")
+    suspend fun getQuestionDetailResult(
+        @Path("questionID") questionID:String,
+        @Query("order") order:String = "desc",
+        @Query("sort") sort:String = "activity",
+        @Query("site") site:String = "stackoverflow",
+        @Query("filter") filter:String = "withbody",
+
+        ): QuestionResultsDto?
+
+//https://api.stackexchange.com/2.2/search/advanced?&pagesize=20&order=desc&sort=activity&title=&site=stackoverflow&filter=withbody
+
+//https://api.stackexchange.com/2.2/questions/0/answers?&order=desc&sort=activity&site=stackoverflow&filter=withbody
 
 
-
-
-
+    //https://api.stackexchange.com/2.2/questions/56435510/answers?order=desc&sort=activity&site=stackoverflow&filter=withbody
     companion object {
         const val BASE_URL = "https://api.stackexchange.com/"
     }

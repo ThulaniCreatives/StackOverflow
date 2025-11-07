@@ -9,17 +9,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import androidx.navigation.toRoute
+import com.thulanicreatives.stackoverflow.domain.model.CustomNavType
+import com.thulanicreatives.stackoverflow.domain.model.QuestionDetailData
 import com.thulanicreatives.stackoverflow.presentation.component.HeaderSection
 import com.thulanicreatives.stackoverflow.presentation.question_detail.QuestionDetailScreen
+import com.thulanicreatives.stackoverflow.presentation.question_list.HomeScreenRoute
 import com.thulanicreatives.stackoverflow.presentation.question_list.MainScreen
+import com.thulanicreatives.stackoverflow.presentation.question_list.QuestionDetailRoute
 import com.thulanicreatives.stackoverflow.ui.theme.StackOverflowTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
+import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,9 +32,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             StackOverflowTheme {
-
-
-
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize()
@@ -42,20 +43,21 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = "SearchScreen",
+                        startDestination = HomeScreenRoute
                     ) {
-                        composable(
-                            route = "SearchScreen"
-                        ) {
-                            MainScreen(navController = navController)
+                        composable<HomeScreenRoute> {
+                            MainScreen(
+                                onItemClicked = { questionDetailData ->
+                                    navController.navigate(
+                                        QuestionDetailRoute(questionDetailData = questionDetailData)
+                                    )
+                                })
                         }
-                        composable(
-                            route = "QuestionDetail/{url}",
-                            arguments = listOf(
-                                navArgument(name = "url") { type = NavType.StringType })
+                        composable<QuestionDetailRoute>(
+                            typeMap = mapOf(typeOf<QuestionDetailData>() to CustomNavType.QuestionDetailDataType)
                         ) { backStackEntry ->
-
-                            QuestionDetailScreen(backStackEntry)
+                            val arguments = backStackEntry.toRoute<QuestionDetailRoute>()
+                            QuestionDetailScreen(questionDetailData = arguments.questionDetailData)
                         }
                     }
                     innerPadding.calculateTopPadding()
@@ -64,6 +66,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Serializable
-object SearchScreen

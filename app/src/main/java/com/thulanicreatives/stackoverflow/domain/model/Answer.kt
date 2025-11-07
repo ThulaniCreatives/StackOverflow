@@ -7,7 +7,6 @@ data class Answer(
     val bountyAmount: Int,
     val bountyClosesDate: Int,
     val closedDate: Int,
-    val closedReason: String,
     val contentLicense: String,
     val creationDate: Int,
     val isAnswered: Boolean,

@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface StackoverflowRepository {
     suspend fun getQuestionResult(question: String): Flow<Resource<QuestionResults>>
+
+    suspend fun getQuestionDetailResult(questionId: String): Flow<Resource<QuestionResults>>
 }

@@ -16,24 +16,23 @@ fun QuestionResultsDto.toQuestionResults() = QuestionResults (
 
 
 fun AnswerDto.toAnswer() = Answer(
-    acceptedAnswerId = acceptedAnswerId ?: 0,
-    answerCount = answerCount ?: 0,
+    acceptedAnswerId = accepted_answer_id ?: 0,
+    answerCount = answer_count ?: 0,
     body = body ?: "",
-    bountyAmount = bountyAmount ?: 0,
-    bountyClosesDate = bountyClosesDate ?: 0,
-    closedDate = closedDate ?: 0,
-    closedReason = closedReason?: "",
-    contentLicense = contentLicense?: "",
-    creationDate = creationDate ?: 0,
+    bountyAmount = bounty_amount ?: 0,
+    bountyClosesDate = bounty_closes_date ?: 0,
+    closedDate = bounty_closes_date ?: 0,
+    contentLicense = content_license?: "",
+    creationDate =creation_date ?: 0,
     isAnswered = false,
-    lastActivityDate = lastActivityDate ?: 0,
-    lastEditDate = lastEditDate ?: 0,
+    lastActivityDate = last_activity_date ?: 0,
+    lastEditDate = last_edit_date ?: 0,
     link = link ?: "",
-    questionId = questionId ?: 0,
+    questionId = question_id ?: 0,
     score = score ?: 0,
     tags = tags ?: emptyList(),
     title = title ?: "",
-    viewCount = viewCount ?: 0
+    viewCount = view_count ?: 0
 
 )
 
