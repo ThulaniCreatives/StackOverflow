@@ -1,8 +1,11 @@
-package com.thulanicreatives.stackoverflow.presentation
+package com.thulanicreatives.stackoverflow.presentation.question_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thulanicreatives.stackoverflow.domain.repository.StackoverflowRepository
+import com.thulanicreatives.stackoverflow.presentation.question_list.MainState
+import com.thulanicreatives.stackoverflow.presentation.question_list.MainUIEvents
 import com.thulanicreatives.stackoverflow.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -30,7 +33,7 @@ class StackoverflowViewModel @Inject constructor(private val stackoverflowReposi
         }
     }
 
-    fun getAnswerResult() {
+    private fun getAnswerResult() {
         viewModelScope.launch {
             stackoverflowRepository.getQuestionResult(
                 mainState.value.searchQuestion
@@ -41,8 +44,10 @@ class StackoverflowViewModel @Inject constructor(private val stackoverflowReposi
                         _mainState.update { it.copy(isLoading = result.isLoading) }
                     }
                     is Resource.Success -> {
-                        result.data?.let {
-                            _mainState.update { it.copy(answer = it.answer) }
+
+                        result.data?.let { questionResults ->
+                            _mainState.update { it.copy(questionResults = questionResults) }
+                            Log.i("TEST","SUCCESS"+result.data)
                         }
                     }
                 }

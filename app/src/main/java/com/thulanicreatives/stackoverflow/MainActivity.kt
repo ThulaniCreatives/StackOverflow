@@ -4,33 +4,22 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.thulanicreatives.stackoverflow.presentation.MainUIEvents
-import com.thulanicreatives.stackoverflow.presentation.StackoverflowViewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.thulanicreatives.stackoverflow.presentation.component.HeaderSection
+import com.thulanicreatives.stackoverflow.presentation.question_detail.QuestionDetailScreen
+import com.thulanicreatives.stackoverflow.presentation.question_list.MainScreen
 import com.thulanicreatives.stackoverflow.ui.theme.StackOverflowTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.Serializable
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -40,61 +29,41 @@ class MainActivity : ComponentActivity() {
         setContent {
             StackOverflowTheme {
 
-                val stackoverflowViewModel = hiltViewModel<StackoverflowViewModel>()
-                val mainState by stackoverflowViewModel.mainState.collectAsState()
 
 
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 24.dp), topBar = {
+                        HeaderSection()
+                    }
 
-                Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-                    OutlinedTextField(
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
-                        value = mainState.searchQuestion,
-                        onValueChange = {
-                            stackoverflowViewModel.onEvent(MainUIEvents.OnSearchQuestion(it))
-                        },
-                        trailingIcon = {
-                            Icon(
-                                imageVector = Icons.Rounded.Search,
-                                contentDescription = stringResource(R.string.search),
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier
-                                    .size(30.dp)
-                                    .clickable {
-                                        stackoverflowViewModel.onEvent(MainUIEvents.OnSearchClick)
-                                    })
-                        },
-                        label = {
-                            Text(
-                                stringResource(R.string.search),
-                                fontSize = 15.sp,
-                                modifier = Modifier.alpha(0.7f)
-                            )
-                        },
-                        textStyle = TextStyle(color = MaterialTheme.colorScheme.onBackground, fontSize = 19.5.sp),
-                    )
-                }) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                ) { innerPadding ->
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = "SearchScreen",
+                    ) {
+                        composable(
+                            route = "SearchScreen"
+                        ) {
+                            MainScreen(navController = navController)
+                        }
+                        composable(
+                            route = "QuestionDetail/{url}",
+                            arguments = listOf(
+                                navArgument(name = "url") { type = NavType.StringType })
+                        ) { backStackEntry ->
+
+                            QuestionDetailScreen(backStackEntry)
+                        }
+                    }
+                    innerPadding.calculateTopPadding()
                 }
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    StackOverflowTheme {
-        Greeting("Android")
-    }
-}
+@Serializable
+object SearchScreen

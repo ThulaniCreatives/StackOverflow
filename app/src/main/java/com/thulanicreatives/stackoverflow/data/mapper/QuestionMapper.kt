@@ -31,10 +31,13 @@ fun AnswerDto.toAnswer() = Answer(
     link = link ?: "",
     questionId = questionId ?: 0,
     score = score ?: 0,
+    tags = tags ?: emptyList(),
     title = title ?: "",
     viewCount = viewCount ?: 0
 
 )
+
+
 
 
 //val hasMore: Boolean,

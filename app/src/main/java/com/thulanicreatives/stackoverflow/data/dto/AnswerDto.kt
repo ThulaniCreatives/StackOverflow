@@ -16,6 +16,7 @@ data class AnswerDto(
     val link: String? = null,
     val questionId: Int? = null,
     val score: Int? = null,
+    val tags: List<String>? = null,
     val title: String? = null,
     val viewCount: Int? = null
 )

@@ -16,6 +16,7 @@ data class Answer(
     val link: String,
     val questionId: Int,
     val score: Int,
+    val tags: List<String>,
     val title: String,
     val viewCount: Int
 )
