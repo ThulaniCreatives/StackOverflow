@@ -50,7 +50,8 @@ fun SearchSection(mainState: MainState, stackoverflowViewModel: StackoverflowVie
             maxLines = 1,
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                unfocusedContainerColor = Color.White
+                unfocusedContainerColor = Color.White,
+                focusedContainerColor = Color.White
             ),
             value = mainState.searchQuestion,
             onValueChange = {

@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -29,11 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thulanicreatives.stackoverflow.R
 import com.thulanicreatives.stackoverflow.domain.model.Answer
+import com.thulanicreatives.stackoverflow.util.convertUnixToDateTime
 
 
 @Composable
 fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifier) {
 
+    val createdDate = convertUnixToDateTime(answer.creationDate.toLong())
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -65,7 +68,7 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
                     .fillMaxWidth(),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                color = MaterialTheme.colorScheme.primary
+                color = colorResource(R.color.primary_blue)
             )
             Text(
                 AnnotatedString.fromHtml(
@@ -78,6 +81,23 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3
             )
+
+           Row {
+               Text(
+                   text = "asked $createdDate by ",
+                   fontSize = 10.sp,
+                   fontWeight = FontWeight.SemiBold,
+                   color = MaterialTheme.colorScheme.primary,
+                   modifier = Modifier.padding(top = 8.dp)
+               )
+               Text(
+                   text = answer.owner.display_name,
+                   fontSize = 10.sp,
+                   fontWeight = FontWeight.SemiBold,
+                   color = colorResource(R.color.primary_blue),
+                   modifier = Modifier.padding(top = 8.dp)
+               )
+           }
         }
         Column(modifier = Modifier.padding(4.dp)) {
             Text(
@@ -102,7 +122,6 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
-
 
         Image(
             painter = painterResource(R.drawable.ic_arrow_right),

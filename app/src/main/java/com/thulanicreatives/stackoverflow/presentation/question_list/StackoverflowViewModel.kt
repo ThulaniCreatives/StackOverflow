@@ -50,7 +50,9 @@ class StackoverflowViewModel @Inject constructor(private val stackoverflowReposi
                 mainState.value.searchQuestion
             ).collect { result ->
                 when(result) {
-                    is Resource.Error -> Unit
+                    is Resource.Error -> {
+                        _mainState.update { it.copy(errorMessage = it.errorMessage) }
+                    }
                     is Resource.Loading -> {
                         _mainState.update { it.copy(isLoading = result.isLoading) }
                     }

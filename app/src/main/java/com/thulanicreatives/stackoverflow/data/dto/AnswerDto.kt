@@ -12,7 +12,7 @@ data class AnswerDto(
     val last_activity_date: Int? = null,
     val last_edit_date: Int? = null,
     val link: String? = null,
-    val owner: Owner? = null,
+    val owner: Owner,
     val question_id: Int? = null,
     val score: Int? = null,
     val tags: List<String>? = null,

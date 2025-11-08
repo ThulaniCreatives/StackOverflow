@@ -1,5 +1,8 @@
 package com.thulanicreatives.stackoverflow.domain.model
 
+import com.thulanicreatives.stackoverflow.data.dto.Owner
+import java.time.LocalDateTime
+
 data class Answer(
     val acceptedAnswerId: Int,
     val answerCount: Int,
@@ -13,6 +16,7 @@ data class Answer(
     val lastActivityDate: Int,
     val lastEditDate: Int,
     val link: String,
+    val owner: Owner,
     val questionId: Int,
     val score: Int,
     val tags: List<String>,
