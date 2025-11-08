@@ -13,6 +13,7 @@ retrofitVersion = "2.9.0"
 interceptorVersion = "4.9.2"
 composeNavigation = "2.8.0-alpha08"
 serialization = "1.6.3"
+core-splashscreen="1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +42,7 @@ dagger-kapt = { module = 'com.google.dagger:hilt-android-compiler', version = "2
 hilt-compose-navigation = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
+core-splashscreen={group= "androidx.core",name="core-splashscreen",version.ref="core-splashscreen"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

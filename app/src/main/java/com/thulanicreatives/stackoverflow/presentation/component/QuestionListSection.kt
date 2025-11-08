@@ -19,13 +19,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thulanicreatives.stackoverflow.R
@@ -35,6 +31,8 @@ import com.thulanicreatives.stackoverflow.util.convertUnixToDateTime
 
 @Composable
 fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifier) {
+
+    val typography = MaterialTheme.typography
 
     val createdDate = convertUnixToDateTime(answer.creationDate.toLong())
     Row(
@@ -57,12 +55,12 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 8.dp, top = 8.dp, bottom = 16.dp, end = 8.dp)
+                .padding(start = 8.dp, top = 8.dp, bottom = 0.dp, end = 8.dp)
         ) {
             Text(
                 text = "Q: ${answer.title}",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
+                style = typography.titleSmall,
+                letterSpacing = 0.sp,
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .fillMaxWidth(),
@@ -74,51 +72,52 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
                 AnnotatedString.fromHtml(
                     answer.body
                 ),
-                fontWeight = FontWeight.Normal,
-                fontSize = 10.sp,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 11.sp,
+                letterSpacing = 0.sp,
                 modifier = Modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.primary,
+                color = Color.Black.copy(0.75f),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3
             )
 
-           Row {
-               Text(
-                   text = "asked $createdDate by ",
-                   fontSize = 10.sp,
-                   fontWeight = FontWeight.SemiBold,
-                   color = MaterialTheme.colorScheme.primary,
-                   modifier = Modifier.padding(top = 8.dp)
-               )
-               Text(
-                   text = answer.owner.display_name,
-                   fontSize = 10.sp,
-                   fontWeight = FontWeight.SemiBold,
-                   color = colorResource(R.color.primary_blue),
-                   modifier = Modifier.padding(top = 8.dp)
-               )
-           }
+            Row {
+                Text(
+                    text = "asked $createdDate by ",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+                Text(
+                    text = answer.owner.display_name,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = colorResource(R.color.primary_blue),
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
         Column(modifier = Modifier.padding(4.dp)) {
             Text(
                 text = "${answer.answerCount} answers",
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
                 text = "${answer.score} votes",
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
                 text = "${answer.viewCount} views",
                 fontSize = 10.sp,
-                fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }
@@ -133,7 +132,7 @@ fun QuestionListSection(answer: Answer, index: Int, size: Int, modifier: Modifie
 
     }
 
-    if ( index < size) {
+    if (index < size) {
         Divider(modifier = Modifier.padding(horizontal = 16.dp))
     }
 }
