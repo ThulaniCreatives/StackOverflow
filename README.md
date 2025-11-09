@@ -1,9 +1,5 @@
 # StackOverflow
 
-## 🚧 Work In Progress 🚧
-
-```100% Kotlin ❤️❤️```
-
 #### This stackOverflow App is built using latest Android tools and Jetpack libraries which includes
 - Jetpack Compose
 - Jetpack DataStore
