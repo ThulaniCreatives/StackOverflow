@@ -2,4 +2,6 @@
     <string name="app_name">StackOverflow</string>
     <string name="network_error">Can not connect to the network</string>
     <string name="search">Search…</string>
+    <string name="not_connected">You are not c onnected to the network!</string>
+    <string name="connected">You are Connected</string>
 </resources>

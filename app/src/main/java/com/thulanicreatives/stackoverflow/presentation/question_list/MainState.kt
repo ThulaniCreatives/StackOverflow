@@ -12,5 +12,6 @@ data class MainState(
 data class QuestionDetailState(
     val isLoading: Boolean = false,
     val selectedId:String = "",
+    val errorMessage:String = "",
     val questionResults: QuestionResults? = null
 )

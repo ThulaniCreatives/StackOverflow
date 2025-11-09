@@ -33,6 +33,10 @@ class StackoverflowViewModel @Inject constructor(private val stackoverflowReposi
             is MainUIEvents.OnSearchQuestion -> {
                 _mainState.update { it.copy(searchQuestion = mainUIEvents.newQuestion.lowercase()) }
             }
+
+            MainUIEvents.OnClearQuestionResults -> {
+                _mainState.update { it.copy(questionResults = null) }
+            }
         }
     }
 
@@ -74,7 +78,9 @@ class StackoverflowViewModel @Inject constructor(private val stackoverflowReposi
                 questionDetailState.value.selectedId
             ).collect { result ->
                 when(result) {
-                    is Resource.Error -> Unit
+                    is Resource.Error -> {
+                        _questionDetailState.update { it.copy(errorMessage = it.errorMessage) }
+                    }
                     is Resource.Loading -> {
                         _questionDetailState.update { it.copy(isLoading = result.isLoading) }
                     }
