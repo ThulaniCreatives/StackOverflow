@@ -11,7 +11,7 @@
 - Single Activity Architecture
 - MVVM Pattern
 
-<img src="https://github.com/ThulaniCreatives/StackOverflow/tree/master/screenshots/QuestionResults.jpeg?raw=true" width="300"/>
+<img src="https://github.com/ThulaniCreatives/StackOverflow/blob/a9eb90a531b0fce38bf281f76ed7118395c8130f/screenshots/DetailsView.jpeg?raw=true" width="300"/>
 
 #### This App demonstrates combination of below features
 - Jetpack Compose
